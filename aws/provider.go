@@ -91,22 +91,6 @@ func Provider() terraform.ResourceProvider {
 				Set:           schema.HashString,
 			},
 
-			"dynamodb_endpoint": {
-				Type:        schema.TypeString,
-				Optional:    true,
-				Default:     "",
-				Description: descriptions["dynamodb_endpoint"],
-				Removed:     "Use `dynamodb` inside `endpoints` block instead",
-			},
-
-			"kinesis_endpoint": {
-				Type:        schema.TypeString,
-				Optional:    true,
-				Default:     "",
-				Description: descriptions["kinesis_endpoint"],
-				Removed:     "Use `kinesis` inside `endpoints` block instead",
-			},
-
 			"endpoints": endpointsSchema(),
 
 			"insecure": {
@@ -185,6 +169,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_cloudwatch_log_group":               dataSourceAwsCloudwatchLogGroup(),
 			"aws_cognito_user_pools":                 dataSourceAwsCognitoUserPools(),
 			"aws_codecommit_repository":              dataSourceAwsCodeCommitRepository(),
+			"aws_cur_report_definition":              dataSourceAwsCurReportDefinition(),
 			"aws_db_cluster_snapshot":                dataSourceAwsDbClusterSnapshot(),
 			"aws_db_event_categories":                dataSourceAwsDbEventCategories(),
 			"aws_db_instance":                        dataSourceAwsDbInstance(),
@@ -206,6 +191,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_efs_mount_target":                   dataSourceAwsEfsMountTarget(),
 			"aws_eip":                                dataSourceAwsEip(),
 			"aws_eks_cluster":                        dataSourceAwsEksCluster(),
+			"aws_eks_cluster_auth":                   dataSourceAwsEksClusterAuth(),
 			"aws_elastic_beanstalk_application":      dataSourceAwsElasticBeanstalkApplication(),
 			"aws_elastic_beanstalk_hosted_zone":      dataSourceAwsElasticBeanstalkHostedZone(),
 			"aws_elastic_beanstalk_solution_stack":   dataSourceAwsElasticBeanstalkSolutionStack(),
@@ -337,6 +323,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_autoscaling_notification":                     resourceAwsAutoscalingNotification(),
 			"aws_autoscaling_policy":                           resourceAwsAutoscalingPolicy(),
 			"aws_autoscaling_schedule":                         resourceAwsAutoscalingSchedule(),
+			"aws_backup_vault":                                 resourceAwsBackupVault(),
 			"aws_budgets_budget":                               resourceAwsBudgetsBudget(),
 			"aws_cloud9_environment_ec2":                       resourceAwsCloud9EnvironmentEc2(),
 			"aws_cloudformation_stack":                         resourceAwsCloudFormationStack(),
@@ -381,6 +368,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_codebuild_webhook":                            resourceAwsCodeBuildWebhook(),
 			"aws_codepipeline":                                 resourceAwsCodePipeline(),
 			"aws_codepipeline_webhook":                         resourceAwsCodePipelineWebhook(),
+			"aws_cur_report_definition":                        resourceAwsCurReportDefinition(),
 			"aws_customer_gateway":                             resourceAwsCustomerGateway(),
 			"aws_datasync_agent":                               resourceAwsDataSyncAgent(),
 			"aws_datasync_location_efs":                        resourceAwsDataSyncLocationEfs(),
@@ -407,7 +395,10 @@ func Provider() terraform.ResourceProvider {
 			"aws_dms_replication_instance":                     resourceAwsDmsReplicationInstance(),
 			"aws_dms_replication_subnet_group":                 resourceAwsDmsReplicationSubnetGroup(),
 			"aws_dms_replication_task":                         resourceAwsDmsReplicationTask(),
+			"aws_docdb_cluster":                                resourceAwsDocDBCluster(),
+			"aws_docdb_cluster_instance":                       resourceAwsDocDBClusterInstance(),
 			"aws_docdb_cluster_parameter_group":                resourceAwsDocDBClusterParameterGroup(),
+			"aws_docdb_cluster_snapshot":                       resourceAwsDocDBClusterSnapshot(),
 			"aws_docdb_subnet_group":                           resourceAwsDocDBSubnetGroup(),
 			"aws_dx_bgp_peer":                                  resourceAwsDxBgpPeer(),
 			"aws_dx_connection":                                resourceAwsDxConnection(),
@@ -428,6 +419,8 @@ func Provider() terraform.ResourceProvider {
 			"aws_ebs_snapshot_copy":                            resourceAwsEbsSnapshotCopy(),
 			"aws_ebs_volume":                                   resourceAwsEbsVolume(),
 			"aws_ec2_capacity_reservation":                     resourceAwsEc2CapacityReservation(),
+			"aws_ec2_client_vpn_endpoint":                      resourceAwsEc2ClientVpnEndpoint(),
+			"aws_ec2_client_vpn_network_association":           resourceAwsEc2ClientVpnNetworkAssociation(),
 			"aws_ec2_fleet":                                    resourceAwsEc2Fleet(),
 			"aws_ec2_transit_gateway":                          resourceAwsEc2TransitGateway(),
 			"aws_ec2_transit_gateway_route":                    resourceAwsEc2TransitGatewayRoute(),
@@ -473,6 +466,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_glacier_vault":                                resourceAwsGlacierVault(),
 			"aws_glacier_vault_lock":                           resourceAwsGlacierVaultLock(),
 			"aws_globalaccelerator_accelerator":                resourceAwsGlobalAcceleratorAccelerator(),
+			"aws_globalaccelerator_listener":                   resourceAwsGlobalAcceleratorListener(),
 			"aws_glue_catalog_database":                        resourceAwsGlueCatalogDatabase(),
 			"aws_glue_catalog_table":                           resourceAwsGlueCatalogTable(),
 			"aws_glue_classifier":                              resourceAwsGlueClassifier(),
@@ -482,6 +476,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_glue_security_configuration":                  resourceAwsGlueSecurityConfiguration(),
 			"aws_glue_trigger":                                 resourceAwsGlueTrigger(),
 			"aws_guardduty_detector":                           resourceAwsGuardDutyDetector(),
+			"aws_guardduty_invite_accepter":                    resourceAwsGuardDutyInviteAccepter(),
 			"aws_guardduty_ipset":                              resourceAwsGuardDutyIpset(),
 			"aws_guardduty_member":                             resourceAwsGuardDutyMember(),
 			"aws_guardduty_threatintelset":                     resourceAwsGuardDutyThreatintelset(),
@@ -520,6 +515,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_iot_thing_principal_attachment":               resourceAwsIotThingPrincipalAttachment(),
 			"aws_iot_thing_type":                               resourceAwsIotThingType(),
 			"aws_iot_topic_rule":                               resourceAwsIotTopicRule(),
+			"aws_iot_role_alias":                               resourceAwsIotRoleAlias(),
 			"aws_key_pair":                                     resourceAwsKeyPair(),
 			"aws_kinesis_firehose_delivery_stream":             resourceAwsKinesisFirehoseDeliveryStream(),
 			"aws_kinesis_stream":                               resourceAwsKinesisStream(),
@@ -589,6 +585,8 @@ func Provider() terraform.ResourceProvider {
 			"aws_organizations_policy_attachment":              resourceAwsOrganizationsPolicyAttachment(),
 			"aws_placement_group":                              resourceAwsPlacementGroup(),
 			"aws_proxy_protocol_policy":                        resourceAwsProxyProtocolPolicy(),
+			"aws_ram_principal_association":                    resourceAwsRamPrincipalAssociation(),
+			"aws_ram_resource_association":                     resourceAwsRamResourceAssociation(),
 			"aws_ram_resource_share":                           resourceAwsRamResourceShare(),
 			"aws_rds_cluster":                                  resourceAwsRDSCluster(),
 			"aws_rds_cluster_endpoint":                         resourceAwsRDSClusterEndpoint(),
@@ -608,10 +606,14 @@ func Provider() terraform.ResourceProvider {
 			"aws_route53_zone_association":                     resourceAwsRoute53ZoneAssociation(),
 			"aws_route53_zone":                                 resourceAwsRoute53Zone(),
 			"aws_route53_health_check":                         resourceAwsRoute53HealthCheck(),
+			"aws_route53_resolver_endpoint":                    resourceAwsRoute53ResolverEndpoint(),
+			"aws_route53_resolver_rule_association":            resourceAwsRoute53ResolverRuleAssociation(),
+			"aws_route53_resolver_rule":                        resourceAwsRoute53ResolverRule(),
 			"aws_route":                                        resourceAwsRoute(),
 			"aws_route_table":                                  resourceAwsRouteTable(),
 			"aws_default_route_table":                          resourceAwsDefaultRouteTable(),
 			"aws_route_table_association":                      resourceAwsRouteTableAssociation(),
+			"aws_sagemaker_model":                              resourceAwsSagemakerModel(),
 			"aws_secretsmanager_secret":                        resourceAwsSecretsManagerSecret(),
 			"aws_secretsmanager_secret_version":                resourceAwsSecretsManagerSecretVersion(),
 			"aws_ses_active_receipt_rule_set":                  resourceAwsSesActiveReceiptRuleSet(),
@@ -730,6 +732,7 @@ func Provider() terraform.ResourceProvider {
 			"aws_wafregional_xss_match_set":                    resourceAwsWafRegionalXssMatchSet(),
 			"aws_wafregional_web_acl":                          resourceAwsWafRegionalWebAcl(),
 			"aws_wafregional_web_acl_association":              resourceAwsWafRegionalWebAclAssociation(),
+			"aws_worklink_fleet":                               resourceAwsWorkLinkFleet(),
 			"aws_batch_compute_environment":                    resourceAwsBatchComputeEnvironment(),
 			"aws_batch_job_definition":                         resourceAwsBatchJobDefinition(),
 			"aws_batch_job_queue":                              resourceAwsBatchJobQueue(),
@@ -953,11 +956,15 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	}
 
 	if v, ok := d.GetOk("allowed_account_ids"); ok {
-		config.AllowedAccountIds = v.(*schema.Set).List()
+		for _, accountIDRaw := range v.(*schema.Set).List() {
+			config.AllowedAccountIds = append(config.AllowedAccountIds, accountIDRaw.(string))
+		}
 	}
 
 	if v, ok := d.GetOk("forbidden_account_ids"); ok {
-		config.ForbiddenAccountIds = v.(*schema.Set).List()
+		for _, accountIDRaw := range v.(*schema.Set).List() {
+			config.ForbiddenAccountIds = append(config.ForbiddenAccountIds, accountIDRaw.(string))
+		}
 	}
 
 	return config.Client()
