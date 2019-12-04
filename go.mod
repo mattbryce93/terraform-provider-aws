@@ -22,7 +22,7 @@ require (
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/terraform v0.11.12
 	github.com/hashicorp/vault v0.10.4
-	github.com/jen20/awspolicyequivalence v1.0.0
+	github.com/jen20/awspolicyequivalence v1.1.0
 	github.com/json-iterator/go v1.1.5 // indirect
 	github.com/kubernetes-sigs/aws-iam-authenticator v0.3.1-0.20181019024009-82544ec86140
 	github.com/mattn/go-isatty v0.0.4 // indirect
