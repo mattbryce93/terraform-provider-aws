@@ -18,7 +18,7 @@ require (
 	github.com/hashicorp/go-hclog v0.0.0-20171005151751-ca137eb4b438 // indirect
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/hashicorp/go-safetemp v1.0.0 // indirect
-	github.com/hashicorp/go-version v1.0.0
+	github.com/hashicorp/go-version v1.2.1
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/terraform v0.11.12
 	github.com/hashicorp/vault v0.10.4
