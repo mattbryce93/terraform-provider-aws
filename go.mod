@@ -4,7 +4,7 @@ require (
 	github.com/apparentlymart/go-cidr v1.0.0 // indirect
 	github.com/apparentlymart/go-textseg v1.0.0 // indirect
 	github.com/armon/go-radix v1.0.0 // indirect
-	github.com/aws/aws-sdk-go v1.17.11
+	github.com/aws/aws-sdk-go v1.37.29
 	github.com/beevik/etree v1.0.1
 	github.com/bgentry/speakeasy v0.1.0 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
@@ -39,7 +39,7 @@ require (
 	github.com/terraform-providers/terraform-provider-tls v1.2.0
 	google.golang.org/grpc v0.0.0-20171025225919-b5eab4ccac6d // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
-	gopkg.in/yaml.v2 v2.2.1
+	gopkg.in/yaml.v2 v2.2.8
 	k8s.io/apimachinery v0.0.0-20190204010555-a98ff070d70e // indirect
 	k8s.io/client-go v10.0.0+incompatible // indirect
 	k8s.io/klog v0.1.0 // indirect
